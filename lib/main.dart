@@ -1,5 +1,4 @@
-import 'package:ekonomie/contants/constants.dart';
-import 'package:ekonomie/screen/dashboard.dart';
+import 'package:ekonomie/constants/constants.dart';
 import 'package:ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';

@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bezier_chart: ^1.0.17+1
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   fl_chart: ^0.12.2
