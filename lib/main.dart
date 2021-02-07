@@ -1,5 +1,5 @@
-import 'package:ekonomie/constants/constants.dart';
-import 'package:ekonomie/screen/new_dashboard.dart';
+import 'package:Ekonomie/constants/constants.dart';
+import 'package:Ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:prefs/prefs.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: () => MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Ekonomie',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: kScaffoldBGColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
