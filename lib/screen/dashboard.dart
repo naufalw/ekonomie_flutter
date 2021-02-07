@@ -1,12 +1,10 @@
 import 'package:bezier_chart/bezier_chart.dart';
-import 'package:dio/dio.dart';
 import 'package:ekonomie/backend/chart_currency.dart';
 import 'package:ekonomie/contants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jiffy/jiffy.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -23,9 +21,6 @@ class _DasbBoardPageState extends State<DashboardPage> {
     dataChart = await _currencyChartData.getChartData();
     // setState(() {});
     if (dataChart != null) {
-      setState(() {
-        print("SeeetState");
-      });
       setState(() {
         print("SeeetState");
       });

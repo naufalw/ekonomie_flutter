@@ -1,5 +1,6 @@
 import 'package:ekonomie/contants/constants.dart';
 import 'package:ekonomie/screen/dashboard.dart';
+import 'package:ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:prefs/prefs.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kScaffoldBGColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: DashboardPage(),
+        home: NewDashboardPage(),
       ),
     );
   }

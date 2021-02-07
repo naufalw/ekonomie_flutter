@@ -1,6 +1,3 @@
-import 'package:dio/dio.dart';
-import 'package:jiffy/jiffy.dart';
-
 void main() async {
   // Dio dio = new Dio();
   // String fromCurrency = "USD";
