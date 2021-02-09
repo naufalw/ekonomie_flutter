@@ -1,5 +1,6 @@
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/hasilPajakPBB_screen.dart';
+import 'package:currency_input_formatters/currency_input_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
@@ -17,9 +18,9 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
   var pilihanModeNJOPKP = ["Diketahui", "Tidak Diketahui"];
   var dropdownModeValue;
   var nNJOPKPmodeValue;
-  int nNJOKP = 0;
-  int nNJOP = 0;
-  int nNJOPTKP = 0;
+  double nNJOKP = 0;
+  double nNJOP = 0;
+  double nNJOPTKP = 0;
 
   Future<void> getPrefsValue() async {
     dropdownModeValue = await Prefs.getStringF("PBBMode", pilihanMode[0]);
@@ -33,7 +34,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
     if (nNJOPKPmodeValue == "Diketahui") {
       return PBBTextField(
         onChanged: (value) {
-          print(value);
+          nNJOKP = double.tryParse(value);
         },
         title: "NJOPKP",
       );
@@ -42,13 +43,13 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
         children: [
           PBBTextField(
             onChanged: (value) {
-              print(value);
+              nNJOP = double.tryParse(value);
             },
             title: "NJOP",
           ),
           PBBTextField(
             onChanged: (value) {
-              print(value);
+              nNJOPTKP = double.tryParse(value);
             },
             title: "NJOPTKP",
           ),
@@ -196,7 +197,11 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PBBHasilScreen()));
+                              builder: (context) => PBBHasilScreen(
+                                    nNJOP: nNJOP,
+                                    nNJOPKP: nNJOKP,
+                                    nNJOPTKP: nNJOPTKP,
+                                  )));
                     },
                     child: Text(
                       "Hitung",
