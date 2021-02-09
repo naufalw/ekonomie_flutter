@@ -1,6 +1,7 @@
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,16 +34,19 @@ class MyApp extends StatelessWidget {
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SplashScreenView(
-        backgroundColor: kPrimaryColor,
-        imageSrc: "assets/launcher_icon/icon.png",
-        home: NewDashboardPage(),
-        duration: 2000,
-        imageSize: ScreenUtil().setSp(250).round(),
-        text: "Ekonomie",
-        textStyle: GoogleFonts.hammersmithOne(
-            fontSize: ScreenUtil().setSp(35.0),
-            fontWeight: FontWeight.bold,
-            color: Colors.white));
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(systemNavigationBarColor: kPrimaryColor),
+      child: SplashScreenView(
+          backgroundColor: kPrimaryColor,
+          imageSrc: "assets/launcher_icon/icon.png",
+          home: NewDashboardPage(),
+          duration: 2000,
+          imageSize: ScreenUtil().setSp(250).round(),
+          text: "Ekonomie",
+          textStyle: GoogleFonts.hammersmithOne(
+              fontSize: ScreenUtil().setSp(35.0),
+              fontWeight: FontWeight.bold,
+              color: Colors.white)),
+    );
   }
 }

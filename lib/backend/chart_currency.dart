@@ -14,7 +14,7 @@ class CurrencyChartData {
     // var dmin1 = Jiffy().subtract(days: 1).toString().split(" ")[0];
     // var hargadmin1 = await dio.get("$url$dmin1$symbolnya");
     List<ChartDataFormat> dataChart = new List();
-    for (var i = 1; i <= 14; i++) {
+    for (var i = 1; i <= 7; i++) {
       DateTime dminDT = Jiffy().subtract(days: i);
       var dmin = Jiffy().subtract(days: i).toString().split(" ")[0];
       var hargadmin = await dio.get("$url$dmin$symbolnya");
@@ -30,9 +30,6 @@ class CurrencyChartData {
     return Center(
       child: Container(
         child: SfCartesianChart(
-            zoomPanBehavior: ZoomPanBehavior(
-                // Enables pinch zooming
-                enablePinching: true),
             primaryYAxis: NumericAxis(),
             primaryXAxis: DateTimeAxis(),
             series: <ChartSeries>[

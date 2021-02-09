@@ -1,5 +1,6 @@
 import 'package:Ekonomie/backend/chart_currency.dart';
 import 'package:Ekonomie/constants/constants.dart';
+import 'package:Ekonomie/screen/pajakPBB_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,21 +21,13 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
     dataChart = await _currencyChartData.newDataChart();
     // setState(() {});
     if (dataChart != null) {
-      setState(() {
-        print("SeeetState");
-      });
+      setState(() {});
     }
   }
 
   Widget getChardWidget() {
     if (dataChart == null) {
-      return NeuCard(
-        bevel: 7,
-        curveType: CurveType.flat,
-        decoration: NeumorphicDecoration(
-          borderRadius: BorderRadius.circular(40),
-          color: kPrimaryColor,
-        ),
+      return Container(
         width: ScreenUtil().setWidth(330),
         child: Padding(
           child: new CircularProgressIndicator(),
@@ -66,21 +59,30 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
 
   @override
   void initState() {
-    getChhhart();
+    if (dataChart == null) {
+      getChhhart();
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (dataChart == null) {
+      getChhhart();
+    }
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(statusBarColor: kPrimaryColor),
+      value: SystemUiOverlayStyle(
+          statusBarColor: kPrimaryColor,
+          systemNavigationBarColor: kScaffoldBGColor),
       child: Scaffold(
         backgroundColor: kScaffoldBGColor,
         body: Column(
           children: [
-            Expanded(
-              flex: 6,
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(328),
               child: NeuomorphicContainer(
+                width: double.infinity,
                 style: NeuomorphicStyle.Flat,
                 blur: 100,
                 color: kPrimaryColor,
@@ -90,22 +92,24 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                     bottomRight: Radius.circular(ScreenUtil().setSp(50))),
                 child: SafeArea(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Text("Dashboard",
-                            style: GoogleFonts.hammersmithOne(
-                                fontSize: ScreenUtil().setSp(45))),
-                      ),
-                      Center(
-                        child: getChardWidget(),
+                      Text("Dashboard",
+                          style: GoogleFonts.hammersmithOne(
+                              fontSize: ScreenUtil().setSp(45))),
+                      getChardWidget(),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(9),
                       )
                     ],
                   ),
                 ),
               ),
             ),
-            Expanded(
-              flex: 7,
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(357),
               child: Container(
                 width: double.infinity,
                 child: SingleChildScrollView(
@@ -115,15 +119,28 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                       children: [
                         DashBoardButton(
                           title: "Pendapatan Nasional",
+                          onPressed: () {},
                         ),
                         DashBoardButton(
                           title: "Pajak Penghasilan",
+                          onPressed: () {},
                         ),
                         DashBoardButton(
                           title: "Pajak Bumi Bangunan",
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PBBHomeScreen()));
+                          },
                         ),
                         DashBoardButton(
                           title: "Kalkulator",
+                          onPressed: () {},
+                        ),
+                        DashBoardButton(
+                          title: "Pengaturan",
+                          onPressed: () {},
                         ),
                       ],
                     )),
@@ -172,9 +189,9 @@ class UpperElevatedButton extends StatelessWidget {
 }
 
 class DashBoardButton extends StatelessWidget {
-  const DashBoardButton({@required this.title});
+  const DashBoardButton({@required this.title, @required this.onPressed});
   final String title;
-
+  final Function onPressed;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -190,7 +207,7 @@ class DashBoardButton extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(21)),
           ),
-          onPressed: () {},
+          onPressed: onPressed,
           child: Center(
             child: Text(title,
                 style: GoogleFonts.hammersmithOne(
