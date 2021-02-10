@@ -47,7 +47,7 @@ class CurrencyChartData {
     } else {
       return LineSeries<ChartDataFormat, DateTime>(
           color: kSecondaryColor,
-
+          width: 4.7,
           // width: 4.0,
           dataSource: dataSource,
           enableTooltip: true,
