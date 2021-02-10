@@ -1,6 +1,7 @@
 import 'package:Ekonomie/backend/chart_currency.dart';
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/pajakPBB_screen.dart';
+import 'package:Ekonomie/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,10 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
     if (dataChart != null) {
       setState(() {});
     }
+  }
+
+  void updateUI() {
+    setState(() {});
   }
 
   Widget getChardWidget() {
@@ -67,9 +72,6 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (dataChart == null) {
-      getChhhart();
-    }
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: kPrimaryColor,
@@ -112,38 +114,51 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
               height: ScreenUtil().setHeight(357),
               child: Container(
                 width: double.infinity,
-                child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(22)),
-                    child: Column(
-                      children: [
-                        DashBoardButton(
-                          title: "Pendapatan Nasional",
-                          onPressed: () {},
-                        ),
-                        DashBoardButton(
-                          title: "Pajak Penghasilan",
-                          onPressed: () {},
-                        ),
-                        DashBoardButton(
-                          title: "Pajak Bumi Bangunan",
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PBBHomeScreen()));
-                          },
-                        ),
-                        DashBoardButton(
-                          title: "Kalkulator",
-                          onPressed: () {},
-                        ),
-                        DashBoardButton(
-                          title: "Pengaturan",
-                          onPressed: () {},
-                        ),
-                      ],
-                    )),
+                child: NotificationListener(
+                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                    overscroll.disallowGlow();
+                    return;
+                  },
+                  child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(6)),
+                      child: Column(
+                        children: [
+                          DashBoardButton(
+                            title: "Pendapatan Nasional",
+                            onPressed: () {},
+                          ),
+                          DashBoardButton(
+                            title: "Pajak Penghasilan",
+                            onPressed: () {},
+                          ),
+                          DashBoardButton(
+                            title: "Pajak Bumi Bangunan",
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PBBHomeScreen()));
+                            },
+                          ),
+                          DashBoardButton(
+                            title: "Kalkulator",
+                            onPressed: () {},
+                          ),
+                          DashBoardButton(
+                            title: "Pengaturan",
+                            onPressed: () {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PengaturanScreen()))
+                                  .then((value) => updateUI());
+                            },
+                          ),
+                        ],
+                      )),
+                ),
               ),
             ),
           ],

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:prefs/prefs.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CurrencyChartData {
@@ -26,6 +27,35 @@ class CurrencyChartData {
     return dataChart;
   }
 
+  ChartSeries getChartSeries(List<ChartDataFormat> dataSource) {
+    if (Prefs.getString("graphmode") == "Area") {
+      return SplineAreaSeries<ChartDataFormat, DateTime>(
+          color: kSecondaryColor,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFf12711),
+              kSecondaryColor,
+            ],
+          ),
+          // width: 4.0,
+          dataSource: dataSource,
+          enableTooltip: true,
+          xValueMapper: (ChartDataFormat cdf, int) => cdf.date,
+          yValueMapper: (ChartDataFormat cdf, int) => cdf.rates);
+    } else {
+      return LineSeries<ChartDataFormat, DateTime>(
+          color: kSecondaryColor,
+
+          // width: 4.0,
+          dataSource: dataSource,
+          enableTooltip: true,
+          xValueMapper: (ChartDataFormat cdf, int) => cdf.date,
+          yValueMapper: (ChartDataFormat cdf, int) => cdf.rates);
+    }
+  }
+
   Widget newCurrencyChartDashboard(List<ChartDataFormat> dataSource) {
     return Center(
       child: Container(
@@ -33,21 +63,7 @@ class CurrencyChartData {
             primaryYAxis: NumericAxis(),
             primaryXAxis: DateTimeAxis(),
             series: <ChartSeries>[
-              SplineAreaSeries<ChartDataFormat, DateTime>(
-                  color: kSecondaryColor,
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFFf12711),
-                      kSecondaryColor,
-                    ],
-                  ),
-                  // width: 4.0,
-                  dataSource: dataSource,
-                  enableTooltip: true,
-                  xValueMapper: (ChartDataFormat cdf, int) => cdf.date,
-                  yValueMapper: (ChartDataFormat cdf, int) => cdf.rates)
+              getChartSeries(dataSource),
             ],
             trackballBehavior: TrackballBehavior(
                 enable: true,

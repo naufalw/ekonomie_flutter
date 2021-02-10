@@ -35,7 +35,7 @@ dependencies:
   neuomorphic_container: ^2.0.3
   prefs: ^3.2.1
   splash_screen_view: ^1.0.3
-  syncfusion_flutter_charts: ^18.4.41
+  syncfusion_flutter_charts: ^18.4.42
 
 dev_dependencies:
   flutter_test:
