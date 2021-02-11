@@ -62,7 +62,7 @@ class _PBBHasilScreenState extends State<PBBHasilScreen> {
         PBBTerutangCard(
           value: nPBBTerutang,
           subtitle:
-              "PBB = NJOPKP x 0.5% x 40% atau 20%\nPBB = $nNJOPKP x $valueBesarPersen\nPBB = $nPBBTerutang",
+              "PBB = NJOPKP x 0.5% x 40% atau 20%\nPBB = $nNJOPKP x 0.5% x $valueBesarPersen\nPBB = $nPBBTerutang",
         )
       ];
     } else if (statusNJOPKP == "Tidak Diketahui") {

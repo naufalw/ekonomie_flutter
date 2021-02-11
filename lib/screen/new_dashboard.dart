@@ -54,7 +54,7 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
         width: ScreenUtil().setWidth(330),
         child: Padding(
           padding: EdgeInsets.fromLTRB(ScreenUtil().setSp(4),
-              ScreenUtil().setSp(13), ScreenUtil().setSp(6), 0.0),
+              ScreenUtil().setSp(0), ScreenUtil().setSp(6), 0.0),
           child: _currencyChartData.newCurrencyChartDashboard(dataChart),
         ),
         height: ScreenUtil().setHeight(200),

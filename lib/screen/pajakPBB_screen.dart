@@ -1,6 +1,5 @@
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/hasilPajakPBB_screen.dart';
-import 'package:currency_input_formatters/currency_input_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
@@ -188,7 +187,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                 width: ScreenUtil().setWidth(240),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      elevation: 6,
+                      elevation: 3,
                       primary: kSecondaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(21)),

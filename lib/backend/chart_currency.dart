@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:prefs/prefs.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -8,8 +9,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class CurrencyChartData {
   Future<List<ChartDataFormat>> newDataChart() async {
     Dio dio = new Dio();
-    String fromCurrency = "USD";
-    String toCurrency = "IDR";
+
+    String fromCurrency = await Prefs.getStringF("fromCurrency", "USD");
+    String toCurrency = await Prefs.getStringF("toCurrency", "IDR");
     String symbolnya = "?symbols=$toCurrency&base=$fromCurrency";
     String url = "https://api.exchangerate.host/";
     // var dmin1 = Jiffy().subtract(days: 1).toString().split(" ")[0];
@@ -57,9 +59,15 @@ class CurrencyChartData {
   }
 
   Widget newCurrencyChartDashboard(List<ChartDataFormat> dataSource) {
+    String fromCurrency = Prefs.getString("fromCurrency", "USD");
+    var haha = Prefs.getString("toCurrency", "IDR");
+
+    String textnya = "$fromCurrency to $haha";
     return Center(
       child: Container(
         child: SfCartesianChart(
+            title:
+                ChartTitle(text: textnya, textStyle: GoogleFonts.secularOne()),
             primaryYAxis: NumericAxis(),
             primaryXAxis: DateTimeAxis(),
             series: <ChartSeries>[
