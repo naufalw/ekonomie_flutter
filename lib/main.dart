@@ -39,7 +39,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(systemNavigationBarColor: kPrimaryColor),
+      value: SystemUiOverlayStyle(
+          systemNavigationBarColor: kPrimaryColor,
+          statusBarColor: kPrimaryColor),
       child: SplashScreenView(
           backgroundColor: kPrimaryColor,
           imageSrc: "assets/launcher_icon/new_icon.png",
