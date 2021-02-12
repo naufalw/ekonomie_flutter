@@ -38,7 +38,7 @@ class SplashScreen extends StatelessWidget {
       value: SystemUiOverlayStyle(systemNavigationBarColor: kPrimaryColor),
       child: SplashScreenView(
           backgroundColor: kPrimaryColor,
-          imageSrc: "assets/launcher_icon/icon.png",
+          imageSrc: "assets/launcher_icon/new_icon.png",
           home: NewDashboardPage(),
           duration: 2000,
           imageSize: ScreenUtil().setSp(250).round(),
