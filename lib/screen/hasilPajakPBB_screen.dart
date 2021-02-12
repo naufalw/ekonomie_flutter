@@ -30,8 +30,8 @@ class _PBBHasilScreenState extends State<PBBHasilScreen> {
     nNJOP = widget.nNJOP ?? 0;
     nNJOPKP = widget.nNJOPKP ?? 0;
     nNJOPTKP = widget.nNJOPTKP ?? 0;
-    besarPersen = await Prefs.getStringF("PBBMode");
-    statusNJOPKP = await Prefs.getStringF("NJOPMode");
+    besarPersen = await Prefs.getStringF("PBBMode", "Auto");
+    statusNJOPKP = await Prefs.getStringF("NJOPMode", "Diketahui");
     if (statusNJOPKP == "Diketahui") {
       nPBBTerutang = getPBBKetemuKP(nNJOPKP, besarPersen);
     } else if (statusNJOPKP == "Tidak Diketahui") {
@@ -136,7 +136,7 @@ class PBBTerutangCard extends StatelessWidget {
         baseColor: kSecondaryColor,
         expandedColor: kSecondaryColor,
         title: Text(
-          "PBB Terutang",
+          "PBB",
           style: GoogleFonts.hammersmithOne(fontSize: ScreenUtil().setSp(22)),
         ),
         subtitle: Text(value.toString(),

@@ -1,5 +1,6 @@
 import 'package:Ekonomie/backend/chart_currency.dart';
 import 'package:Ekonomie/constants/constants.dart';
+import 'package:Ekonomie/screen/calc_screen_alternative.dart';
 import 'package:Ekonomie/screen/pajakPBB_screen.dart';
 import 'package:Ekonomie/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -97,9 +98,13 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Dashboard",
-                          style: GoogleFonts.hammersmithOne(
-                              fontSize: ScreenUtil().setSp(45))),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: ScreenUtil().setHeight(7)),
+                        child: Text("Dashboard",
+                            style: GoogleFonts.hammersmithOne(
+                                fontSize: ScreenUtil().setSp(45))),
+                      ),
                       getChardWidget(),
                       SizedBox(
                         height: ScreenUtil().setHeight(9),
@@ -143,17 +148,21 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                           ),
                           DashBoardButton(
                             title: "Kalkulator",
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CalcScreenNew()));
+                            },
                           ),
                           DashBoardButton(
                             title: "Pengaturan",
                             onPressed: () {
                               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PengaturanScreen()))
-                                  .then((value) => updateUI());
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PengaturanScreen()));
                             },
                           ),
                         ],

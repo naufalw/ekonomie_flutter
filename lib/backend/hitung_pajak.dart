@@ -34,3 +34,23 @@ double getPBBGatauKP(double nNJOP, double nNJOPTKP, String besarPersen) {
     return 0;
   }
 }
+
+double getPPHKetemuPKP(double nPKP) {
+  double nPPH = 0.0;
+  if (nPKP < 50000000) {
+    nPPH = 5 / 100 * nPKP;
+    return nPPH;
+  } else if (nPKP >= 50000000 && nPKP < 250000000) {
+    var dikurang50jeti = nPKP - 50000000;
+    nPPH += 50000000 * 5 / 100;
+    nPPH += dikurang50jeti * 15 / 100;
+    return nPPH;
+  } else if (nPKP >= 250000000 && nPKP < 500000000) {
+    var dikurang50jeti = nPKP - 50000000;
+    nPPH += 50000000 * 5 / 100;
+    nPPH += dikurang50jeti * 15 / 100;
+    return nPPH;
+  } else {
+    return 0;
+  }
+}

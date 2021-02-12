@@ -22,7 +22,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     "INR",
     "MYR",
     "PHP",
-    "SAD",
+    "SAR",
     "SGD",
     "USD",
   ];

@@ -60,9 +60,9 @@ class CurrencyChartData {
 
   Widget newCurrencyChartDashboard(List<ChartDataFormat> dataSource) {
     String fromCurrency = Prefs.getString("fromCurrency", "USD");
-    var haha = Prefs.getString("toCurrency", "IDR");
+    var toCurrency = Prefs.getString("toCurrency", "IDR");
 
-    String textnya = "$fromCurrency to $haha";
+    String textnya = "1 $fromCurrency to $toCurrency";
     return Center(
       child: Container(
         child: SfCartesianChart(

@@ -23,7 +23,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
 
   Future<void> getPrefsValue() async {
     dropdownModeValue = await Prefs.getStringF("PBBMode", pilihanMode[0]);
-    nNJOPKPmodeValue = await Prefs.getStringF("NJOPMode", pilihanMode[0]);
+    nNJOPKPmodeValue = await Prefs.getStringF("NJOPMode", pilihanModeNJOPKP[0]);
     if (dropdownModeValue != null) {
       setState(() {});
     }
