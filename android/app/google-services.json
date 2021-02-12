@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318105927562",
+    "project_id": "ekonomie-581af",
+    "storage_bucket": "ekonomie-581af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318105927562:android:fbcde4e7b7e88cb8221273",
+        "android_client_info": {
+          "package_name": "com.nopalgemink.ekonomie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318105927562-sepb0k8ihca3dj1f4mjb154fbv3nln4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRMO1sUIm7Yo56oNg1fPVcXBiv5h2ZMyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318105927562-sepb0k8ihca3dj1f4mjb154fbv3nln4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
