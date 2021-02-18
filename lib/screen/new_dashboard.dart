@@ -2,6 +2,7 @@ import 'package:Ekonomie/backend/chart_currency.dart';
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/calc_screen_alternative.dart';
 import 'package:Ekonomie/screen/pajakPBB_screen.dart';
+import 'package:Ekonomie/screen/pendapatanNasional_screen.dart';
 import 'package:Ekonomie/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -131,7 +132,13 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                         children: [
                           DashBoardButton(
                             title: "Pendapatan Nasional",
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PendapatanNasionalScreen()));
+                            },
                           ),
                           DashBoardButton(
                             title: "Pajak Penghasilan",
