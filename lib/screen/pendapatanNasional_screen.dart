@@ -2,8 +2,13 @@ import 'package:Ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:prefs/prefs.dart';
+import 'package:currency_input_formatters/currency_input_formatters.dart';
+import 'package:backdrop_modal_route/backdrop_modal_route.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:Ekonomie/backend/pendapatanNasional_brain.dart';
 
 class PendapatanNasionalScreen extends StatefulWidget {
   @override
@@ -14,10 +19,37 @@ class PendapatanNasionalScreen extends StatefulWidget {
 class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
   List metodePendapatanNasional = ["Pengeluaran", "Pemasukan"];
   String selectedMetode;
+  double c = 0,
+      investasi = 0,
+      g = 0,
+      xport = 0,
+      mport = 0,
+      r = 0,
+      w = 0,
+      interest = 0,
+      p = 0;
+  double hasil = 0;
+
   void getAllStuff() async {
-    selectedMetode =
-        await Prefs.getStringF("MetodePendapatanNasional", "Pengeluaran");
-    setState(() {});
+    selectedMetode = await Prefs.getStringF(
+        "MetodePendapatanNasional", metodePendapatanNasional[0]);
+    if (selectedMetode != null) {
+      setState(() {});
+    }
+  }
+
+  void getValue() {
+    if (selectedMetode == "Pengeluaran") {
+      hasil = getPendapatanNasionalPengeluaran(c, investasi, g, xport, mport);
+    } else if (selectedMetode == "Pemasukan") {
+      hasil = getPendapatanNasionalPemasukan(r, w, interest, p);
+    }
+  }
+
+  @override
+  void initState() {
+    getAllStuff();
+    super.initState();
   }
 
   @override
@@ -42,7 +74,7 @@ class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
                     fontSize: ScreenUtil().setSp(17))),
             Padding(
               padding: EdgeInsets.fromLTRB(
-                  ScreenUtil().setSp(12),
+                  ScreenUtil().setSp(7),
                   ScreenUtil().setSp(2),
                   ScreenUtil().setSp(7),
                   ScreenUtil().setSp(5)),
@@ -51,7 +83,7 @@ class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
                   alignment: Alignment.center,
                   bevel: 0,
                   height: ScreenUtil().setHeight(50),
-                  width: ScreenUtil().setWidth(335),
+                  width: ScreenUtil().setWidth(340),
                   decoration: NeumorphicDecoration(
                       borderRadius: BorderRadius.circular(21),
                       color: kAlternateButtonColor),
@@ -72,7 +104,7 @@ class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
                                   child: Text(
                                 e,
                                 style: GoogleFonts.secularOne(
-                                    fontSize: ScreenUtil().setSp(21)),
+                                    fontSize: ScreenUtil().setSp(22)),
                               )),
                               value: e,
                             );
@@ -89,7 +121,240 @@ class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
                     ),
                   )),
             ),
+            getListWidget(),
+            Padding(
+              padding: EdgeInsets.all(ScreenUtil().setSp(8)),
+              child: Container(
+                height: ScreenUtil().setHeight(55),
+                width: ScreenUtil().setWidth(240),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 3,
+                      primary: kSecondaryColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(21)),
+                    ),
+                    onPressed: () async {
+                      getValue();
+                      var hasilFormatted = NumberFormat.currency(
+                              locale: "id", symbol: "", decimalDigits: 0)
+                          .format(hasil);
+                      Navigator.push(
+                          context,
+                          BackdropModalRoute<void>(
+                              barrierLabelVal: "Hasil",
+                              topPadding: ScreenUtil().setHeight(200),
+                              canBarrierDismiss: true,
+                              safeAreaRight: true,
+                              safeAreaTop: true,
+                              backgroundColor: kScaffoldBGColor,
+                              overlayContentBuilder: (context) {
+                                return ModalHasilSheet(
+                                  hasilText: hasilFormatted,
+                                );
+                              }));
+                    },
+                    child: Text(
+                      "Hitung",
+                      style: GoogleFonts.secularOne(
+                          fontSize: ScreenUtil().setSp(28)),
+                    )),
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget getListWidget() {
+    if (selectedMetode == "Pengeluaran") {
+      return Column(
+        children: [
+          PendapatanNasionalTextField(
+            title: "Konsumsi (C)",
+            onChanged: (value) {
+              c = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Investasi (I)",
+            onChanged: (value) {
+              investasi = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Pemerintah (G)",
+            onChanged: (value) {
+              g = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Ekspor (M)",
+            onChanged: (value) {
+              xport = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Impor (M)",
+            onChanged: (value) {
+              mport = double.tryParse(value.split(".").join());
+            },
+          ),
+        ],
+      );
+    } else if (selectedMetode == "Pemasukan") {
+      return Column(
+        children: [
+          PendapatanNasionalTextField(
+            title: "Sewa (R)",
+            onChanged: (value) {
+              r = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Upah (W)",
+            onChanged: (value) {
+              w = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Bunga (I)",
+            onChanged: (value) {
+              interest = double.tryParse(value.split(".").join());
+            },
+          ),
+          PendapatanNasionalTextField(
+            title: "Laba (P)",
+            onChanged: (value) {
+              p = double.tryParse(value.split(".").join());
+            },
+          ),
+        ],
+      );
+    } else {
+      return Container();
+    }
+  }
+}
+
+class ModalHasilSheet extends StatefulWidget {
+  const ModalHasilSheet({this.hasilText});
+  final hasilText;
+  @override
+  _ModalHasilSheetState createState() => _ModalHasilSheetState();
+}
+
+class _ModalHasilSheetState extends State<ModalHasilSheet> {
+  String hasilText;
+  @override
+  void initState() {
+    hasilText = widget.hasilText;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: EdgeInsets.all(ScreenUtil().setSp(12.0)),
+            child: GestureDetector(
+              child: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text(
+                "Hasil",
+                style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(45)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(ScreenUtil().setSp(20.0)),
+                child: AutoSizeText(
+                  hasilText ?? "0",
+                  maxLines: 1,
+                  style: GoogleFonts.secularOne(
+                    fontSize: ScreenUtil().setSp(80),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(ScreenUtil().setSp(8)),
+          child: Container(
+            height: ScreenUtil().setHeight(55),
+            width: ScreenUtil().setWidth(240),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  primary: kSecondaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(21)),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Tutup",
+                  style:
+                      GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(28)),
+                )),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PendapatanNasionalTextField extends StatelessWidget {
+  final Function onChanged;
+  final String title;
+  const PendapatanNasionalTextField({@required this.title, this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: 12.0, vertical: ScreenUtil().setHeight(7)),
+      child: NeuCard(
+        bevel: 1.2,
+        curveType: CurveType.emboss,
+        decoration: NeumorphicDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.circular(ScreenUtil().setSp(15))),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: NeuTextField(
+            inputFormatters: [CurrencyFormatter()],
+            onChanged: onChanged,
+            textAlign: TextAlign.center,
+            textInputAction: TextInputAction.done,
+            scrollPadding: EdgeInsets.zero,
+            style: GoogleFonts.secularOne(
+                letterSpacing: 0.5, fontSize: ScreenUtil().setSp(29)),
+            autocorrect: false,
+            toolbarOptions:
+                ToolbarOptions(copy: false, paste: false, selectAll: false),
+            keyboardType: TextInputType.numberWithOptions(decimal: false),
+            decoration: InputDecoration.collapsed(
+              hintText: title,
+              fillColor: kAlternateButtonColor,
+              focusColor: kAlternateButtonColor,
+            ),
+          ),
         ),
       ),
     );

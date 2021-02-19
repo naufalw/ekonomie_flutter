@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jiffy/jiffy.dart';
+
 import 'package:prefs/prefs.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -18,8 +18,9 @@ class CurrencyChartData {
     // var hargadmin1 = await dio.get("$url$dmin1$symbolnya");
     List<ChartDataFormat> dataChart = new List();
     for (var i = 1; i <= 7; i++) {
-      DateTime dminDT = Jiffy().subtract(days: i);
-      var dmin = Jiffy().subtract(days: i).toString().split(" ")[0];
+      DateTime dminDT = DateTime.now().subtract(Duration(days: i));
+      var dmin =
+          DateTime.now().subtract(Duration(days: i)).toString().split(" ")[0];
       var hargadmin = await dio.get("$url$dmin$symbolnya");
       var dataCurrency = hargadmin.data["rates"][toCurrency];
       dataChart.add(ChartDataFormat(dminDT, dataCurrency.round()));

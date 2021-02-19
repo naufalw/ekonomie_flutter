@@ -23,13 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  auto_size_text: ^2.1.0
+  backdrop_modal_route: ^1.1.0
   cupertino_icons: ^1.0.0
   currency_input_formatters: ^0.0.2
   dio: ^3.0.10
   expansion_tile_card: ^1.1.0
   flutter_screenutil: ^4.0.3+1
   google_fonts: ^1.1.2
-  jiffy: ^3.0.1
+  intl: ^0.16.1
   math_expressions: ^2.0.2
   neumorphic: ^0.4.0
   neuomorphic_container: ^2.0.3
@@ -40,8 +42,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.8.1
   flutter_automation: ^1.4.0
+  flutter_launcher_icons: ^0.8.1
 
 flutter_icons:
   android: true

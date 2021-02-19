@@ -1,5 +1,6 @@
 import 'package:Ekonomie/constants/constants.dart';
 import 'package:Ekonomie/screen/hasilPajakPBB_screen.dart';
+import 'package:currency_input_formatters/currency_input_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
@@ -33,7 +34,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
     if (nNJOPKPmodeValue == "Diketahui") {
       return PBBTextField(
         onChanged: (value) {
-          nNJOKP = double.tryParse(value);
+          nNJOKP = double.tryParse(value.split(".").join());
         },
         title: "NJOPKP",
       );
@@ -42,13 +43,13 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
         children: [
           PBBTextField(
             onChanged: (value) {
-              nNJOP = double.tryParse(value);
+              nNJOP = double.tryParse(value.split(".").join());
             },
             title: "NJOP",
           ),
           PBBTextField(
             onChanged: (value) {
-              nNJOPTKP = double.tryParse(value);
+              nNJOPTKP = double.tryParse(value.split(".").join());
             },
             title: "NJOPTKP",
           ),
@@ -235,6 +236,7 @@ class PBBTextField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: NeuTextField(
+            inputFormatters: [CurrencyFormatter()],
             onChanged: onChanged,
             textAlign: TextAlign.center,
             textInputAction: TextInputAction.done,
@@ -243,8 +245,8 @@ class PBBTextField extends StatelessWidget {
                 letterSpacing: 0.5, fontSize: ScreenUtil().setSp(29)),
             autocorrect: false,
             toolbarOptions:
-                ToolbarOptions(copy: true, paste: true, selectAll: true),
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                ToolbarOptions(copy: false, paste: false, selectAll: false),
+            keyboardType: TextInputType.numberWithOptions(decimal: false),
             decoration: InputDecoration.collapsed(
               hintText: title,
               fillColor: kAlternateButtonColor,
