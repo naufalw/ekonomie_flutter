@@ -1,4 +1,4 @@
-name: Ekonomie
+name: ekonomie
 description: Aplikasi yang dapat membantu anda mengerjakan soal ekonomi di Sekolah Menengah.
 
 # The following line prevents the package from being accidentally published to
@@ -25,15 +25,16 @@ dependencies:
     sdk: flutter
   auto_size_text: ^2.1.0
   backdrop_modal_route: ^1.1.0
+  clay_containers: ^0.3.2
   cupertino_icons: ^1.0.0
   currency_input_formatters: ^0.0.2
   dio: ^3.0.10
   expansion_tile_card: ^1.1.0
+  flutter_neumorphic: any
   flutter_screenutil: ^4.0.3+1
   google_fonts: ^1.1.2
   intl: ^0.16.1
   math_expressions: ^2.0.2
-  neumorphic: ^0.4.0
   neuomorphic_container: ^2.0.3
   prefs: ^3.2.1
   splash_screen_view: ^1.0.3

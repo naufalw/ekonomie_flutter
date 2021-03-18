@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:Ekonomie/constants/constants.dart';
+import 'package:ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +16,7 @@ class CurrencyChartData {
     String url = "https://api.exchangerate.host/";
     // var dmin1 = Jiffy().subtract(days: 1).toString().split(" ")[0];
     // var hargadmin1 = await dio.get("$url$dmin1$symbolnya");
-    List<ChartDataFormat> dataChart = new List();
+    List<ChartDataFormat> dataChart = [];
     for (var i = 1; i <= 7; i++) {
       DateTime dminDT = DateTime.now().subtract(Duration(days: i));
       var dmin =

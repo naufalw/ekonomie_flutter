@@ -1,14 +1,16 @@
-import 'package:Ekonomie/backend/chart_currency.dart';
-import 'package:Ekonomie/constants/constants.dart';
-import 'package:Ekonomie/screen/calc_screen_alternative.dart';
-import 'package:Ekonomie/screen/pajakPBB_screen.dart';
-import 'package:Ekonomie/screen/pendapatanNasional_screen.dart';
-import 'package:Ekonomie/screen/settings_screen.dart';
+import 'package:clay_containers/clay_containers.dart';
+import 'package:ekonomie/backend/chart_currency.dart';
+import 'package:ekonomie/constants/constants.dart';
+import 'package:ekonomie/screen/calc_screen_alternative.dart';
+import 'package:ekonomie/screen/pajakPBB_screen.dart';
+import 'package:ekonomie/screen/pajakPenghasilan_screen.dart';
+import 'package:ekonomie/screen/pendapatanNasional_screen.dart';
+import 'package:ekonomie/screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neumorphic/neumorphic.dart';
 import 'package:neuomorphic_container/neuomorphic_container.dart';
 
 class NewDashboardPage extends StatefulWidget {
@@ -46,18 +48,17 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
         height: ScreenUtil().setHeight(200),
       );
     } else {
-      return NeuCard(
-        bevel: 7,
-        curveType: CurveType.flat,
-        decoration: NeumorphicDecoration(
-          borderRadius: BorderRadius.circular(40),
+      return Container(
+        child: ClayContainer(
+          depth: 6,
+          customBorderRadius: BorderRadius.circular(40),
           color: kPrimaryColor,
-        ),
-        width: ScreenUtil().setWidth(330),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(ScreenUtil().setSp(4),
-              ScreenUtil().setSp(0), ScreenUtil().setSp(6), 0.0),
-          child: _currencyChartData.newCurrencyChartDashboard(dataChart),
+          width: ScreenUtil().setWidth(330),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(ScreenUtil().setSp(4),
+                ScreenUtil().setSp(0), ScreenUtil().setSp(6), 0.0),
+            child: _currencyChartData.newCurrencyChartDashboard(dataChart),
+          ),
         ),
         height: ScreenUtil().setHeight(200),
       );
@@ -102,7 +103,9 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                       Padding(
                         padding:
                             EdgeInsets.only(top: ScreenUtil().setHeight(7)),
-                        child: Text("Dashboard",
+                        child: ClayText("Dashboard",
+                            depth: 18,
+                            parentColor: kPrimaryColor,
                             style: GoogleFonts.hammersmithOne(
                                 fontSize: ScreenUtil().setSp(45))),
                       ),
@@ -142,7 +145,13 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                           ),
                           DashBoardButton(
                             title: "Pajak Penghasilan",
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PajakPenghasilanScreen()));
+                            },
                           ),
                           DashBoardButton(
                             title: "Pajak Bumi Bangunan",
@@ -231,18 +240,20 @@ class DashBoardButton extends StatelessWidget {
           vertical: ScreenUtil().setHeight(6)),
       child: Container(
         height: ScreenUtil().setHeight(60),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 6,
-            primary: kSecondaryColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(21)),
-          ),
-          onPressed: onPressed,
-          child: Center(
-            child: Text(title,
-                style: GoogleFonts.hammersmithOne(
-                    fontSize: ScreenUtil().setSp(25))),
+        child: NeumorphicTheme(
+          child: NeumorphicButton(
+            style: NeumorphicStyle(
+                color: kSecondaryColor,
+                shadowDarkColor: kPrimaryColor,
+                shadowLightColor: kPrimaryColor,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(21))),
+            onPressed: onPressed,
+            child: Center(
+              child: Text(title,
+                  style: GoogleFonts.hammersmithOne(
+                      fontSize: ScreenUtil().setSp(25))),
+            ),
           ),
         ),
       ),

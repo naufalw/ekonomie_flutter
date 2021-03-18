@@ -1,4 +1,4 @@
-import 'package:Ekonomie/constants/constants.dart';
+import 'package:ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class Calculator extends StatefulWidget {

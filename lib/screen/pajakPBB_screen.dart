@@ -1,11 +1,12 @@
-import 'package:Ekonomie/constants/constants.dart';
-import 'package:Ekonomie/screen/hasilPajakPBB_screen.dart';
+import 'package:clay_containers/clay_containers.dart';
+import 'package:clay_containers/widgets/clay_container.dart';
+import 'package:ekonomie/constants/constants.dart';
+import 'package:ekonomie/screen/hasilPajakPBB_screen.dart';
 import 'package:currency_input_formatters/currency_input_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neumorphic/neumorphic.dart';
 import 'package:prefs/prefs.dart';
 
 class PBBHomeScreen extends StatefulWidget {
@@ -89,43 +90,45 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                       ScreenUtil().setSp(5),
                       ScreenUtil().setSp(7),
                       ScreenUtil().setSp(5)),
-                  child: NeuCard(
-                      curveType: CurveType.emboss,
+                  child: Container(
                       alignment: Alignment.center,
-                      bevel: 0,
                       height: ScreenUtil().setHeight(50),
                       width: ScreenUtil().setWidth(110),
-                      decoration: NeumorphicDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: kAlternateButtonColor),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              style: GoogleFonts.secularOne(
-                                  fontSize: ScreenUtil().setSp(17)),
-                              dropdownColor: kPrimaryColor,
-                              elevation: 0,
-                              isExpanded: true,
-                              value: dropdownModeValue,
-                              items: pilihanMode.map((e) {
-                                return DropdownMenuItem(
-                                  child: Center(
-                                      child: Text(
-                                    e,
-                                    style: GoogleFonts.secularOne(
-                                        fontSize: ScreenUtil().setSp(21)),
-                                  )),
-                                  value: e,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                await Prefs.setString("PBBMode", value);
-                                setState(() {
-                                  dropdownModeValue = value;
-                                });
-                              },
+                      child: ClayContainer(
+                        parentColor: kSecondaryColor,
+                        surfaceColor: kSecondaryColor,
+                        curveType: CurveType.convex,
+                        customBorderRadius: BorderRadius.circular(17),
+                        spread: 0.8,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                style: GoogleFonts.secularOne(
+                                    fontSize: ScreenUtil().setSp(17)),
+                                dropdownColor: kPrimaryColor,
+                                elevation: 0,
+                                isExpanded: true,
+                                value: dropdownModeValue,
+                                items: pilihanMode.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Center(
+                                        child: Text(
+                                      e,
+                                      style: GoogleFonts.secularOne(
+                                          fontSize: ScreenUtil().setSp(21)),
+                                    )),
+                                    value: e,
+                                  );
+                                }).toList(),
+                                onChanged: (value) async {
+                                  await Prefs.setString("PBBMode", value);
+                                  setState(() {
+                                    dropdownModeValue = value;
+                                  });
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -137,43 +140,45 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                       ScreenUtil().setSp(5),
                       ScreenUtil().setSp(12),
                       ScreenUtil().setSp(5)),
-                  child: NeuCard(
-                      curveType: CurveType.emboss,
+                  child: Container(
                       alignment: Alignment.center,
-                      bevel: 0,
                       height: ScreenUtil().setHeight(50),
                       width: ScreenUtil().setWidth(215),
-                      decoration: NeumorphicDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: kAlternateButtonColor),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              style: GoogleFonts.secularOne(
-                                  fontSize: ScreenUtil().setSp(17)),
-                              dropdownColor: kPrimaryColor,
-                              elevation: 0,
-                              isExpanded: true,
-                              value: nNJOPKPmodeValue,
-                              items: pilihanModeNJOPKP.map((e) {
-                                return DropdownMenuItem(
-                                  child: Center(
-                                      child: Text(
-                                    e,
-                                    style: GoogleFonts.secularOne(
-                                        fontSize: ScreenUtil().setSp(21)),
-                                  )),
-                                  value: e,
-                                );
-                              }).toList(),
-                              onChanged: (value) async {
-                                await Prefs.setString("NJOPMode", value);
-                                setState(() {
-                                  nNJOPKPmodeValue = value;
-                                });
-                              },
+                      child: ClayContainer(
+                        parentColor: kSecondaryColor,
+                        surfaceColor: kSecondaryColor,
+                        curveType: CurveType.convex,
+                        customBorderRadius: BorderRadius.circular(17),
+                        spread: 0.8,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                style: GoogleFonts.secularOne(
+                                    fontSize: ScreenUtil().setSp(17)),
+                                dropdownColor: kPrimaryColor,
+                                elevation: 0,
+                                isExpanded: true,
+                                value: nNJOPKPmodeValue,
+                                items: pilihanModeNJOPKP.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Center(
+                                        child: Text(
+                                      e,
+                                      style: GoogleFonts.secularOne(
+                                          fontSize: ScreenUtil().setSp(21)),
+                                    )),
+                                    value: e,
+                                  );
+                                }).toList(),
+                                onChanged: (value) async {
+                                  await Prefs.setString("NJOPMode", value);
+                                  setState(() {
+                                    nNJOPKPmodeValue = value;
+                                  });
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -184,7 +189,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
             Padding(
               padding: EdgeInsets.all(ScreenUtil().setSp(8)),
               child: Container(
-                height: ScreenUtil().setHeight(55),
+                height: ScreenUtil().setHeight(52),
                 width: ScreenUtil().setWidth(240),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -227,30 +232,30 @@ class PBBTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: 12.0, vertical: ScreenUtil().setHeight(7)),
-      child: NeuCard(
-        bevel: 1.2,
-        curveType: CurveType.emboss,
-        decoration: NeumorphicDecoration(
-            color: kPrimaryColor,
-            borderRadius: BorderRadius.circular(ScreenUtil().setSp(15))),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: NeuTextField(
-            inputFormatters: [CurrencyFormatter()],
-            onChanged: onChanged,
-            textAlign: TextAlign.center,
-            textInputAction: TextInputAction.done,
-            scrollPadding: EdgeInsets.zero,
-            style: GoogleFonts.secularOne(
-                letterSpacing: 0.5, fontSize: ScreenUtil().setSp(29)),
-            autocorrect: false,
-            toolbarOptions:
-                ToolbarOptions(copy: false, paste: false, selectAll: false),
-            keyboardType: TextInputType.numberWithOptions(decimal: false),
-            decoration: InputDecoration.collapsed(
-              hintText: title,
-              fillColor: kAlternateButtonColor,
-              focusColor: kAlternateButtonColor,
+      child: Container(
+        child: ClayContainer(
+          spread: 1.5,
+          color: kPrimaryColor,
+          customBorderRadius: BorderRadius.circular(ScreenUtil().setSp(15)),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: TextField(
+              inputFormatters: [CurrencyFormatter()],
+              onChanged: onChanged,
+              textAlign: TextAlign.center,
+              textInputAction: TextInputAction.done,
+              scrollPadding: EdgeInsets.zero,
+              style: GoogleFonts.secularOne(
+                  letterSpacing: 0.5, fontSize: ScreenUtil().setSp(29)),
+              autocorrect: false,
+              toolbarOptions:
+                  ToolbarOptions(copy: false, paste: false, selectAll: false),
+              keyboardType: TextInputType.numberWithOptions(decimal: false),
+              decoration: InputDecoration.collapsed(
+                hintText: title,
+                fillColor: kAlternateButtonColor,
+                focusColor: kAlternateButtonColor,
+              ),
             ),
           ),
         ),

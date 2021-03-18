@@ -1,5 +1,5 @@
-import 'package:Ekonomie/backend/hitung_pajak.dart';
-import 'package:Ekonomie/constants/constants.dart';
+import 'package:ekonomie/backend/hitung_pajak.dart';
+import 'package:ekonomie/constants/constants.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';

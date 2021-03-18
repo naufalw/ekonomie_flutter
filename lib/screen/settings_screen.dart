@@ -1,9 +1,10 @@
-import 'package:Ekonomie/constants/constants.dart';
-import 'package:Ekonomie/screen/new_dashboard.dart';
+import 'package:clay_containers/clay_containers.dart';
+import 'package:ekonomie/constants/constants.dart';
+import 'package:ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neumorphic/neumorphic.dart';
 import 'package:prefs/prefs.dart';
 
 class PengaturanScreen extends StatefulWidget {
@@ -27,15 +28,13 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     "USD",
   ];
   var fromCurrency;
+  int modeIndex = 0;
   var toCurrency;
-  var pilihanGraphDropDown;
   void getValueMess() async {
-    pilihanGraphDropDown = await Prefs.getStringF("graphmode", pilihanGraph[0]);
+    modeIndex = await Prefs.getIntF("modeGrafik", 0);
     fromCurrency = await Prefs.getStringF("fromCurrency", currencyList[10]);
     toCurrency = await Prefs.getStringF("toCurrency", currencyList[4]);
-    if (pilihanGraphDropDown != null &&
-        fromCurrency != null &&
-        toCurrency != null) {
+    if (modeIndex != null && fromCurrency != null && toCurrency != null) {
       setState(() {});
     }
   }
@@ -85,166 +84,178 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                     ScreenUtil().setSp(2),
                     ScreenUtil().setSp(7),
                     ScreenUtil().setSp(5)),
-                child: NeuCard(
-                    curveType: CurveType.emboss,
-                    alignment: Alignment.center,
-                    bevel: 0,
-                    height: ScreenUtil().setHeight(50),
-                    width: ScreenUtil().setWidth(335),
-                    decoration: NeumorphicDecoration(
-                        borderRadius: BorderRadius.circular(21),
-                        color: kAlternateButtonColor),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            style: GoogleFonts.secularOne(
-                                fontSize: ScreenUtil().setSp(17)),
-                            dropdownColor: kPrimaryColor,
-                            elevation: 0,
-                            isExpanded: true,
-                            value: pilihanGraphDropDown,
-                            items: pilihanGraph.map((e) {
-                              return DropdownMenuItem(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: NeumorphicTheme(
+                        themeMode: ThemeMode.light,
+                        theme: NeumorphicThemeData(
+                            baseColor: kSecondaryColor,
+                            shadowLightColor: kSecondaryColor),
+                        child: NeumorphicToggle(
+                          height: ScreenUtil().setHeight(45),
+                          displayForegroundOnlyIfSelected: true,
+                          selectedIndex: modeIndex,
+                          thumb: Neumorphic(
+                              style: NeumorphicStyle(
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.all(Radius.circular(12))),
+                          )),
+                          style: NeumorphicToggleStyle(
+                            depth: 3,
+                            backgroundColor: kPrimaryColor,
+                          ),
+                          children: pilihanGraph.map((e) {
+                            return ToggleElement(
+                              background: Center(
+                                  child: Text(e,
+                                      style: GoogleFonts.secularOne(
+                                        fontSize: ScreenUtil().setSp(21),
+                                        backgroundColor: kPrimaryColor,
+                                      ))),
+                              foreground: Container(
+                                decoration: BoxDecoration(
+                                    color: kSecondaryColor,
+                                    borderRadius: BorderRadius.circular(12)),
                                 child: Center(
                                     child: Text(
                                   e,
                                   style: GoogleFonts.secularOne(
                                       fontSize: ScreenUtil().setSp(21)),
                                 )),
-                                value: e,
-                              );
-                            }).toList(),
-                            onChanged: (value) async {
-                              await Prefs.setString("graphmode", value);
-                              setState(() {
-                                pilihanGraphDropDown = value;
-                              });
-                            },
-                          ),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) async {
+                            await Prefs.setInt("modeGrafik", value);
+                            setState(() {
+                              modeIndex = value;
+                            });
+                          },
                         ),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        ScreenUtil().setSp(12),
-                        ScreenUtil().setSp(5),
-                        ScreenUtil().setSp(7),
-                        ScreenUtil().setSp(5)),
-                    child: Column(
+              Padding(
+                padding: EdgeInsets.all(ScreenUtil().setSp(8)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
                       children: [
                         Text("From Currency",
                             textAlign: TextAlign.left,
                             style: GoogleFonts.hammersmithOne(
                                 fontSize: ScreenUtil().setSp(17))),
-                        NeuCard(
-                            curveType: CurveType.emboss,
-                            alignment: Alignment.center,
-                            bevel: 0,
-                            height: ScreenUtil().setHeight(50),
-                            width: ScreenUtil().setWidth(162),
-                            decoration: NeumorphicDecoration(
-                                borderRadius: BorderRadius.circular(21),
-                                color: kAlternateButtonColor),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    style: GoogleFonts.secularOne(
-                                        fontSize: ScreenUtil().setSp(17)),
-                                    dropdownColor: kPrimaryColor,
-                                    elevation: 0,
-                                    isExpanded: true,
-                                    value: fromCurrency,
-                                    items: currencyList.map((e) {
-                                      return DropdownMenuItem(
-                                        child: Center(
-                                            child: Text(
-                                          e,
-                                          style: GoogleFonts.secularOne(
-                                              fontSize: ScreenUtil().setSp(21)),
-                                        )),
-                                        value: e,
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) async {
-                                      await Prefs.setString(
-                                          "fromCurrency", value);
-                                      setState(() {
-                                        fromCurrency = value;
-                                      });
-                                    },
+                        Container(
+                          alignment: Alignment.center,
+                          child: ClayContainer(
+                              spread: 0.8,
+                              parentColor: kSecondaryColor,
+                              surfaceColor: kSecondaryColor,
+                              curveType: CurveType.convex,
+                              height: ScreenUtil().setHeight(45),
+                              width: ScreenUtil().setWidth(150),
+                              customBorderRadius: BorderRadius.circular(12),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      style: GoogleFonts.secularOne(
+                                          fontSize: ScreenUtil().setSp(17)),
+                                      dropdownColor: kPrimaryColor,
+                                      elevation: 0,
+                                      isExpanded: true,
+                                      value: fromCurrency,
+                                      items: currencyList.map((e) {
+                                        return DropdownMenuItem(
+                                          child: Center(
+                                              child: Text(
+                                            e,
+                                            style: GoogleFonts.secularOne(
+                                                fontSize:
+                                                    ScreenUtil().setSp(21)),
+                                          )),
+                                          value: e,
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) async {
+                                        await Prefs.setString(
+                                            "fromCurrency", value);
+                                        setState(() {
+                                          fromCurrency = value;
+                                        });
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )),
+                              )),
+                        ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        ScreenUtil().setSp(3),
-                        ScreenUtil().setSp(5),
-                        ScreenUtil().setSp(12),
-                        ScreenUtil().setSp(5)),
-                    child: Column(
+                    SizedBox(
+                      width: ScreenUtil().setWidth(15),
+                    ),
+                    Column(
                       children: [
                         Text("To Currency",
                             textAlign: TextAlign.left,
                             style: GoogleFonts.hammersmithOne(
                                 fontSize: ScreenUtil().setSp(17))),
-                        NeuCard(
-                            curveType: CurveType.emboss,
-                            alignment: Alignment.center,
-                            bevel: 0,
-                            height: ScreenUtil().setHeight(50),
-                            width: ScreenUtil().setWidth(162),
-                            decoration: NeumorphicDecoration(
-                                borderRadius: BorderRadius.circular(21),
-                                color: kAlternateButtonColor),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    style: GoogleFonts.secularOne(
-                                        fontSize: ScreenUtil().setSp(17)),
-                                    dropdownColor: kPrimaryColor,
-                                    elevation: 0,
-                                    isExpanded: true,
-                                    value: toCurrency,
-                                    items: currencyList.map((e) {
-                                      return DropdownMenuItem(
-                                        child: Center(
-                                            child: Text(
-                                          e,
-                                          style: GoogleFonts.secularOne(
-                                              fontSize: ScreenUtil().setSp(21)),
-                                        )),
-                                        value: e,
-                                      );
-                                    }).toList(),
-                                    onChanged: (value) async {
-                                      await Prefs.setString(
-                                          "toCurrency", value);
-                                      setState(() {
-                                        toCurrency = value;
-                                      });
-                                    },
+                        Container(
+                          alignment: Alignment.center,
+                          child: ClayContainer(
+                              spread: 0.8,
+                              parentColor: kSecondaryColor,
+                              surfaceColor: kSecondaryColor,
+                              curveType: CurveType.convex,
+                              height: ScreenUtil().setHeight(45),
+                              width: ScreenUtil().setWidth(150),
+                              customBorderRadius: BorderRadius.circular(12),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      style: GoogleFonts.secularOne(
+                                          fontSize: ScreenUtil().setSp(17)),
+                                      dropdownColor: kPrimaryColor,
+                                      elevation: 0,
+                                      isExpanded: true,
+                                      value: toCurrency,
+                                      items: currencyList.map((e) {
+                                        return DropdownMenuItem(
+                                          child: Center(
+                                              child: Text(
+                                            e,
+                                            style: GoogleFonts.secularOne(
+                                                fontSize:
+                                                    ScreenUtil().setSp(21)),
+                                          )),
+                                          value: e,
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) async {
+                                        await Prefs.setString(
+                                            "toCurrency", value);
+                                        setState(() {
+                                          toCurrency = value;
+                                        });
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )),
+                              )),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

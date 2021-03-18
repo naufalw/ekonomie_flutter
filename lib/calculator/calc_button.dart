@@ -24,9 +24,12 @@ class CalcButton extends StatelessWidget {
       child: SizedBox(
         width: 65,
         height: 65,
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+            backgroundColor: fillColor != null ? Color(fillColor) : null,
           ),
           onPressed: () {
             callback(text);
@@ -34,13 +37,9 @@ class CalcButton extends StatelessWidget {
           child: Text(
             text,
             style: GoogleFonts.rubik(
-              textStyle: TextStyle(
-                fontSize: textSize,
-              ),
+              textStyle: TextStyle(fontSize: textSize, color: Color(textColor)),
             ),
           ),
-          color: fillColor != null ? Color(fillColor) : null,
-          textColor: Color(textColor),
         ),
       ),
     );

@@ -1,5 +1,5 @@
-import 'package:Ekonomie/calculator/calc_button.dart';
-import 'package:Ekonomie/constants/constants.dart';
+import 'package:ekonomie/calculator/calc_button.dart';
+import 'package:ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
