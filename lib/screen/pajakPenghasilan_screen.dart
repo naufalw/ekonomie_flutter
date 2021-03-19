@@ -1,10 +1,14 @@
+import 'package:backdrop_modal_route/backdrop_modal_route.dart';
 import 'package:clay_containers/clay_containers.dart';
+import 'package:ekonomie/backend/hitung_pajak.dart';
 import 'package:ekonomie/constants/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:currency_input_formatters/currency_input_formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:prefs/prefs.dart';
 
 class PajakPenghasilanScreen extends StatefulWidget {
@@ -14,21 +18,23 @@ class PajakPenghasilanScreen extends StatefulWidget {
 
 class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
   String selectedPKPMethod;
-  int nPKP;
-  int nPenghasilan;
+  double nPKP;
+  double nPenghasilan;
   bool statusNikah = false;
   bool statusNPWP = false;
   bool penghasilanDigabung = false;
   List<String> allPKPMethod = ["Diketahui", "Tidak Diketahui"];
-  List<String> jumlahTanggungan = ["1", "2", "Diatas 2"];
+  List<String> jumlahTanggungan = ["0", "1", "2", "Diatas 2"];
   String nTanggungan;
+  var nPPH = 0.0;
+  String jmlTanggungan;
 
   Widget getAllWidget() {
     if (selectedPKPMethod == "Diketahui") {
       return PajakPenghasilanTextField(
         title: "PKP",
         onChanged: (val) {
-          nPKP = int.tryParse(val.split(".").join());
+          nPKP = double.tryParse(val.split(".").join());
         },
       );
     } else if (selectedPKPMethod == "Tidak Diketahui") {
@@ -37,14 +43,14 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
           PajakPenghasilanTextField(
             title: "Penghasilan",
             onChanged: (val) {
-              nPenghasilan = int.tryParse(val.split(".").join());
+              nPenghasilan = double.tryParse(val.split(".").join());
             },
           ),
           CheckboxListTile(
             activeColor: kSecondaryColor,
             value: statusNPWP,
             title: AutoSizeText(
-              "Wajib Pajak Orang Pribadi (ada NPWP)",
+              "Wajib Pajak Orang Pribadi",
               style: GoogleFonts.secularOne(
                 fontSize: ScreenUtil().setSp(15),
               ),
@@ -90,13 +96,28 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
           ),
           Padding(
             padding:
+                EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                "Tanggungan Keluarga :",
+                style: GoogleFonts.secularOne(
+                  fontSize: ScreenUtil().setSp(15),
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Padding(
+            padding:
                 EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(12)),
             child: DropdownButton(
               dropdownColor: kPrimaryColor,
               isExpanded: true,
-              hint: AutoSizeText("Tanggungan Keluarga",
-                  style: GoogleFonts.secularOne(
-                      fontSize: ScreenUtil().setSp(15), color: Colors.white)),
+
+              // hint: AutoSizeText("Tanggungan Keluarga",
+              //     style: GoogleFonts.secularOne(
+              //         fontSize: ScreenUtil().setSp(15), color: Colors.white)),
               items: jumlahTanggungan.map((e) {
                 return DropdownMenuItem(
                   child: Center(
@@ -110,10 +131,15 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
                   value: e,
                 );
               }).toList(),
-              value: nTanggungan,
+              value: nTanggungan ?? "0",
               onChanged: (val) {
                 setState(() {
                   nTanggungan = val;
+                  if (val == "Diatas 2") {
+                    jmlTanggungan = "3";
+                  } else {
+                    jmlTanggungan = val;
+                  }
                 });
               },
             ),
@@ -129,6 +155,15 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
     selectedPKPMethod = await Prefs.getStringF("PKP Method", allPKPMethod[0]);
     if (selectedPKPMethod != null) {
       setState(() {});
+    }
+  }
+
+  void getValue() {
+    if (selectedPKPMethod == "Diketahui") {
+      nPPH = getPPHKetemuPKP(nPKP);
+    } else if (selectedPKPMethod == "Tidak Diketahui") {
+      nPPH = getPPHGatauPKP(nPenghasilan ?? 0, statusNPWP, statusNikah,
+          penghasilanDigabung, jmlTanggungan ?? "0");
     }
   }
 
@@ -213,6 +248,45 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
                 ),
               ),
               getAllWidget(),
+              Padding(
+                padding: EdgeInsets.all(ScreenUtil().setSp(8)),
+                child: Container(
+                  width: ScreenUtil().setWidth(220),
+                  child: NeumorphicButton(
+                      style: NeumorphicStyle(
+                          color: kSecondaryColor,
+                          shadowDarkColor: kPrimaryColor,
+                          shadowLightColor: kPrimaryColor,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(21))),
+                      onPressed: () async {
+                        getValue();
+                        var hasilFormatted = NumberFormat.currency(
+                                locale: "id", symbol: "", decimalDigits: 0)
+                            .format(nPPH);
+                        Navigator.push(
+                            context,
+                            BackdropModalRoute<void>(
+                                barrierLabelVal: "Hasil",
+                                topPadding: ScreenUtil().setHeight(200),
+                                canBarrierDismiss: true,
+                                safeAreaRight: true,
+                                safeAreaTop: true,
+                                backgroundColor: kScaffoldBGColor,
+                                overlayContentBuilder: (context) {
+                                  return ModalHasilSheet(
+                                    hasilText: hasilFormatted,
+                                  );
+                                }));
+                      },
+                      child: Text(
+                        "Hitung",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.secularOne(
+                            fontSize: ScreenUtil().setSp(28)),
+                      )),
+                ),
+              ),
             ],
           ),
         ),
@@ -258,6 +332,95 @@ class PajakPenghasilanTextField extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ModalHasilSheet extends StatefulWidget {
+  const ModalHasilSheet({this.hasilText});
+  final hasilText;
+  @override
+  _ModalHasilSheetState createState() => _ModalHasilSheetState();
+}
+
+class _ModalHasilSheetState extends State<ModalHasilSheet> {
+  String hasilText;
+  @override
+  void initState() {
+    hasilText = widget.hasilText;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: EdgeInsets.all(ScreenUtil().setSp(12.0)),
+            child: GestureDetector(
+              child: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text(
+                "Tarif PPh",
+                style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(45)),
+              ),
+              Padding(
+                padding: EdgeInsets.all(ScreenUtil().setSp(20.0)),
+                child: AutoSizeText(
+                  hasilText ?? "0",
+                  maxLines: 1,
+                  style: GoogleFonts.secularOne(
+                    fontSize: ScreenUtil().setSp(80),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(ScreenUtil().setSp(8)),
+          child: Container(
+            height: ScreenUtil().setHeight(55),
+            width: ScreenUtil().setWidth(240),
+            child: NeumorphicButton(
+                style: NeumorphicStyle(
+                    color: kSecondaryColor,
+                    shadowDarkColor: kPrimaryColor,
+                    shadowLightColor: kPrimaryColor,
+                    boxShape: NeumorphicBoxShape.roundRect(
+                        BorderRadius.circular(21))),
+                // style: ElevatedButton.styleFrom(
+                //   elevation: 3,
+                //   primary: kSecondaryColor,
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(21)),
+                // ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Tutup",
+                  style: GoogleFonts.secularOne(
+                    fontSize: ScreenUtil().setSp(28),
+                  ),
+                  textAlign: TextAlign.center,
+                )),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -36,9 +36,9 @@ dependencies:
   intl: ^0.16.1
   math_expressions: ^2.0.2
   neuomorphic_container: ^2.0.3
-  prefs: ^3.2.1
+  prefs: ^3.3.0
   splash_screen_view: ^1.0.3
-  syncfusion_flutter_charts: ^18.4.42
+  syncfusion_flutter_charts: ^18.4.48
 
 dev_dependencies:
   flutter_test:

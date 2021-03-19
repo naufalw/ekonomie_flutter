@@ -2,6 +2,7 @@ import 'package:ekonomie/constants/constants.dart';
 import 'package:ekonomie/screen/new_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
     ]);
 
     return ScreenUtilInit(
-      builder: () => MaterialApp(
+      builder: () => NeumorphicApp(
+        debugShowCheckedModeBanner: false,
         title: 'Ekonomie',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: kScaffoldBGColor,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        themeMode: ThemeMode.dark,
+        materialDarkTheme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: kScaffoldBGColor,
+            accentColor: kSecondaryColor),
         home: SplashScreen(),
       ),
     );

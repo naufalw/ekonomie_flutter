@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:ekonomie/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:prefs/prefs.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -23,8 +22,9 @@ class CurrencyChartData {
           DateTime.now().subtract(Duration(days: i)).toString().split(" ")[0];
       var hargadmin = await dio.get("$url$dmin$symbolnya");
       var dataCurrency = hargadmin.data["rates"][toCurrency];
-      dataChart.add(ChartDataFormat(dminDT, dataCurrency.round()));
+      dataChart.add(ChartDataFormat(dminDT, dataCurrency));
     }
+
     // print(hargadmin1.data["rates"][toCurrency].round());
     // int num = 1;
     return dataChart;

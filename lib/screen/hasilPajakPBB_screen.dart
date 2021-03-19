@@ -99,19 +99,23 @@ class _PBBHasilScreenState extends State<PBBHasilScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Hasil PBB",
-          style: GoogleFonts.secularOne(),
+    return Theme(
+      data: ThemeData.dark(),
+      child: Scaffold(
+        backgroundColor: kScaffoldBGColor,
+        appBar: AppBar(
+          title: Text(
+            "Hasil PBB",
+            style: GoogleFonts.secularOne(),
+          ),
+          elevation: 0.0,
+          backgroundColor: kPrimaryColor,
         ),
-        elevation: 0.0,
-        backgroundColor: kPrimaryColor,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: ScreenUtil().setHeight(10)),
-        child: Column(
-          children: getWidgetList(),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(top: ScreenUtil().setHeight(10)),
+          child: Column(
+            children: getWidgetList(),
+          ),
         ),
       ),
     );
@@ -137,10 +141,12 @@ class PBBTerutangCard extends StatelessWidget {
         expandedColor: kSecondaryColor,
         title: Text(
           "PBB",
-          style: GoogleFonts.hammersmithOne(fontSize: ScreenUtil().setSp(22)),
+          style: GoogleFonts.hammersmithOne(
+              fontSize: ScreenUtil().setSp(22), color: kPBBResultTitleColor),
         ),
         subtitle: Text(value.toString(),
-            style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(16))),
+            style: GoogleFonts.secularOne(
+                fontSize: ScreenUtil().setSp(16), color: kPBBResultTitleColor)),
         children: [
           Divider(
             thickness: 2.0,
@@ -149,8 +155,8 @@ class PBBTerutangCard extends StatelessWidget {
           Text(
             subtitle,
             style: GoogleFonts.hammersmithOne(
-              fontSize: ScreenUtil().setSp(14.5),
-            ),
+                fontSize: ScreenUtil().setSp(14.5),
+                color: kPBBResultTitleColor),
           ),
         ],
       ),
@@ -176,10 +182,12 @@ class NJOPCard extends StatelessWidget {
         expandedColor: kSecondaryColor,
         title: Text(
           "NJOP",
-          style: GoogleFonts.hammersmithOne(fontSize: ScreenUtil().setSp(21)),
+          style: GoogleFonts.hammersmithOne(
+              fontSize: ScreenUtil().setSp(21), color: kPBBResultTitleColor),
         ),
         subtitle: Text(value.toString(),
-            style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(16))),
+            style: GoogleFonts.secularOne(
+                fontSize: ScreenUtil().setSp(16), color: kPBBResultTitleColor)),
         children: [
           Divider(
             thickness: 2.0,
@@ -188,8 +196,8 @@ class NJOPCard extends StatelessWidget {
           Text(
             subtitle,
             style: GoogleFonts.hammersmithOne(
-              fontSize: ScreenUtil().setSp(14.5),
-            ),
+                fontSize: ScreenUtil().setSp(14.5),
+                color: kPBBResultTitleColor),
           )
         ],
       ),
@@ -215,10 +223,12 @@ class NJOPTKPCard extends StatelessWidget {
         expandedColor: kSecondaryColor,
         title: Text(
           "NJOPTKP",
-          style: GoogleFonts.hammersmithOne(fontSize: ScreenUtil().setSp(21)),
+          style: GoogleFonts.hammersmithOne(
+              fontSize: ScreenUtil().setSp(21), color: kPBBResultTitleColor),
         ),
         subtitle: Text(value.toString(),
-            style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(16))),
+            style: GoogleFonts.secularOne(
+                fontSize: ScreenUtil().setSp(16), color: kPBBResultTitleColor)),
         children: [
           Divider(
             thickness: 2.0,
@@ -226,8 +236,8 @@ class NJOPTKPCard extends StatelessWidget {
           ),
           Text(subtitle,
               style: GoogleFonts.hammersmithOne(
-                fontSize: ScreenUtil().setSp(14.5),
-              )),
+                  fontSize: ScreenUtil().setSp(14.5),
+                  color: kPBBResultTitleColor)),
         ],
       ),
     );
@@ -252,10 +262,12 @@ class NJOPKPCard extends StatelessWidget {
         expandedColor: kSecondaryColor,
         title: Text(
           "NJOPKP",
-          style: GoogleFonts.hammersmithOne(fontSize: ScreenUtil().setSp(21)),
+          style: GoogleFonts.hammersmithOne(
+              fontSize: ScreenUtil().setSp(21), color: kPBBResultTitleColor),
         ),
         subtitle: Text(value.toString(),
-            style: GoogleFonts.secularOne(fontSize: ScreenUtil().setSp(16))),
+            style: GoogleFonts.secularOne(
+                fontSize: ScreenUtil().setSp(16), color: kPBBResultTitleColor)),
         children: [
           Divider(
             thickness: 2.0,
@@ -263,8 +275,8 @@ class NJOPKPCard extends StatelessWidget {
           ),
           Text(subtitle,
               style: GoogleFonts.hammersmithOne(
-                fontSize: ScreenUtil().setSp(14.5),
-              )),
+                  fontSize: ScreenUtil().setSp(14.5),
+                  color: kPBBResultTitleColor)),
         ],
       ),
     );

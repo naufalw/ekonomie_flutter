@@ -84,22 +84,21 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: NeumorphicTheme(
+                    child: new NeumorphicTheme(
                       themeMode: ThemeMode.light,
-                      theme: NeumorphicThemeData(
-                          baseColor: kSecondaryColor,
-                          shadowLightColor: kSecondaryColor),
+                      theme: NeumorphicThemeData.dark().copyWith(
+                          baseColor: Colors.transparent,
+                          shadowLightColor: Colors.transparent,
+                          shadowDarkColor: Colors.transparent),
                       child: NeumorphicToggle(
+                        alphaAnimationCurve: Curves.bounceInOut,
+                        movingCurve: Curves.bounceInOut,
                         height: ScreenUtil().setHeight(45),
-                        displayForegroundOnlyIfSelected: true,
+                        displayForegroundOnlyIfSelected: false,
                         selectedIndex: modeIndex,
-                        thumb: Neumorphic(
-                            style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.all(Radius.circular(12))),
-                        )),
+                        thumb: Container(),
                         style: NeumorphicToggleStyle(
-                          depth: 3,
+                          depth: 0,
                           backgroundColor: kPrimaryColor,
                         ),
                         children: pilihanGraph.map((e) {
@@ -110,10 +109,12 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                                       fontSize: ScreenUtil().setSp(21),
                                       backgroundColor: kPrimaryColor,
                                     ))),
-                            foreground: Container(
-                              decoration: BoxDecoration(
-                                  color: kSecondaryColor,
-                                  borderRadius: BorderRadius.circular(12)),
+                            foreground: ClayContainer(
+                              spread: 0.2,
+                              parentColor: kSecondaryColor,
+                              surfaceColor: kSecondaryColor,
+                              curveType: CurveType.convex,
+                              customBorderRadius: BorderRadius.circular(12),
                               child: Center(
                                   child: Text(
                                 e,

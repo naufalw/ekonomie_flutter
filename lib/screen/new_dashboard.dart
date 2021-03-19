@@ -30,7 +30,7 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
     }
   }
 
-  void updateUI() async {
+  void updateUI() {
     getChhhart();
     getChardWidget();
     setState(() {});
@@ -83,113 +83,115 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
           systemNavigationBarColor: kScaffoldBGColor),
       child: Scaffold(
         backgroundColor: kScaffoldBGColor,
-        body: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: ScreenUtil().setHeight(328),
-              child: NeuomorphicContainer(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
                 width: double.infinity,
-                style: NeuomorphicStyle.Flat,
-                blur: 100,
-                color: kPrimaryColor,
-                intensity: 0.47,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(ScreenUtil().setSp(50)),
-                    bottomRight: Radius.circular(ScreenUtil().setSp(50))),
-                child: SafeArea(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenUtil().setHeight(7)),
-                        child: ClayText("Dashboard",
-                            depth: 18,
-                            parentColor: kPrimaryColor,
-                            style: GoogleFonts.hammersmithOne(
-                                fontSize: ScreenUtil().setSp(45))),
-                      ),
-                      getChardWidget(),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(9),
-                      )
-                    ],
+                height: ScreenUtil().setHeight(328),
+                child: NeuomorphicContainer(
+                  width: double.infinity,
+                  blur: 100,
+                  color: kPrimaryColor,
+                  intensity: 0.47,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(ScreenUtil().setSp(30)),
+                      bottomRight: Radius.circular(ScreenUtil().setSp(30))),
+                  child: SafeArea(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: ScreenUtil().setHeight(7)),
+                          child: ClayText("Dashboard",
+                              depth: 18,
+                              parentColor: kPrimaryColor,
+                              style: GoogleFonts.hammersmithOne(
+                                  fontSize: ScreenUtil().setSp(45))),
+                        ),
+                        getChardWidget(),
+                        SizedBox(
+                          height: ScreenUtil().setHeight(12),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: ScreenUtil().setHeight(357),
-              child: Container(
+              SizedBox(
                 width: double.infinity,
-                child: NotificationListener(
-                  onNotification: (OverscrollIndicatorNotification overscroll) {
-                    overscroll.disallowGlow();
-                    return;
-                  },
-                  child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(
-                          vertical: ScreenUtil().setHeight(6)),
-                      child: Column(
-                        children: [
-                          DashBoardButton(
-                            title: "Pendapatan Nasional",
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PendapatanNasionalScreen()));
-                            },
-                          ),
-                          DashBoardButton(
-                            title: "Pajak Penghasilan",
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PajakPenghasilanScreen()));
-                            },
-                          ),
-                          DashBoardButton(
-                            title: "Pajak Bumi Bangunan",
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PBBHomeScreen()));
-                            },
-                          ),
-                          DashBoardButton(
-                            title: "Kalkulator",
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CalcScreenNew()));
-                            },
-                          ),
-                          DashBoardButton(
-                            title: "Pengaturan",
-                            onPressed: () {
-                              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PengaturanScreen()))
-                                  .then((value) => updateUI());
-                            },
-                          ),
-                        ],
-                      )),
+                height: ScreenUtil().setHeight(357),
+                child: Container(
+                  width: double.infinity,
+                  child: NotificationListener(
+                    onNotification:
+                        (OverscrollIndicatorNotification overscroll) {
+                      overscroll.disallowGlow();
+                      return;
+                    },
+                    child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(
+                            vertical: ScreenUtil().setHeight(6)),
+                        child: Column(
+                          children: [
+                            DashBoardButton(
+                              title: "Pendapatan Nasional",
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PendapatanNasionalScreen()));
+                              },
+                            ),
+                            DashBoardButton(
+                              title: "Pajak Penghasilan",
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PajakPenghasilanScreen()));
+                              },
+                            ),
+                            DashBoardButton(
+                              title: "Pajak Bumi Bangunan",
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PBBHomeScreen()));
+                              },
+                            ),
+                            DashBoardButton(
+                              title: "Kalkulator",
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CalcScreenNew()));
+                              },
+                            ),
+                            DashBoardButton(
+                              title: "Pengaturan",
+                              onPressed: () {
+                                Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PengaturanScreen()))
+                                    .then((value) => updateUI());
+                              },
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -243,20 +245,18 @@ class DashBoardButton extends StatelessWidget {
           vertical: ScreenUtil().setHeight(6)),
       child: Container(
         height: ScreenUtil().setHeight(60),
-        child: NeumorphicTheme(
-          child: NeumorphicButton(
-            style: NeumorphicStyle(
-                color: kSecondaryColor,
-                shadowDarkColor: kPrimaryColor,
-                shadowLightColor: kPrimaryColor,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(21))),
-            onPressed: onPressed,
-            child: Center(
-              child: Text(title,
-                  style: GoogleFonts.hammersmithOne(
-                      fontSize: ScreenUtil().setSp(25))),
-            ),
+        child: NeumorphicButton(
+          style: NeumorphicStyle(
+              color: kSecondaryColor,
+              shadowDarkColor: kPrimaryColor,
+              shadowLightColor: kPrimaryColor,
+              boxShape:
+                  NeumorphicBoxShape.roundRect(BorderRadius.circular(21))),
+          onPressed: onPressed,
+          child: Center(
+            child: Text(title,
+                style: GoogleFonts.hammersmithOne(
+                    fontSize: ScreenUtil().setSp(25))),
           ),
         ),
       ),
