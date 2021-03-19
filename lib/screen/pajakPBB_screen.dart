@@ -99,7 +99,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                         surfaceColor: kSecondaryColor,
                         curveType: CurveType.convex,
                         customBorderRadius: BorderRadius.circular(17),
-                        spread: 0.8,
+                        spread: 0.2,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -149,7 +149,7 @@ class _PBBHomeScreenState extends State<PBBHomeScreen> {
                         surfaceColor: kSecondaryColor,
                         curveType: CurveType.convex,
                         customBorderRadius: BorderRadius.circular(17),
-                        spread: 0.8,
+                        spread: 0.2,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

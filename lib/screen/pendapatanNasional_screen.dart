@@ -92,7 +92,7 @@ class _PendapatanNasionalScreenState extends State<PendapatanNasionalScreen> {
                       parentColor: kSecondaryColor,
                       surfaceColor: kSecondaryColor,
                       curveType: CurveType.convex,
-                      spread: 1.1,
+                      spread: 0.2,
                       height: ScreenUtil().setHeight(50),
                       width: ScreenUtil().setWidth(340),
                       customBorderRadius: BorderRadius.circular(21),

@@ -30,7 +30,9 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
     }
   }
 
-  void updateUI() {
+  void updateUI() async {
+    getChhhart();
+    getChardWidget();
     setState(() {});
   }
 
@@ -175,10 +177,11 @@ class _NewDashboardPageState extends State<NewDashboardPage> {
                             title: "Pengaturan",
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          PengaturanScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PengaturanScreen()))
+                                  .then((value) => updateUI());
                             },
                           ),
                         ],

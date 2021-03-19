@@ -174,7 +174,7 @@ class _PajakPenghasilanScreenState extends State<PajakPenghasilanScreen> {
                       parentColor: kSecondaryColor,
                       surfaceColor: kSecondaryColor,
                       curveType: CurveType.convex,
-                      spread: 1,
+                      spread: 0,
                       height: ScreenUtil().setHeight(50),
                       width: ScreenUtil().setWidth(340),
                       customBorderRadius: BorderRadius.circular(21),
